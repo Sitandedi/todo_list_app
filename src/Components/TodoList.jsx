@@ -22,13 +22,13 @@ const TodoList = () => {
         newTodos.splice(index, 1);         // Remove the selected heading
         setTodos(newTodos);                // Update state with modified list
     };
-    // Function to add a new list item under a specific heading
+    // Function to add a new list item under a specific heading or index
     const handleAddList = (index) => {
         if (listInputs[index] && listInputs[index].trim() !== '') {
             const newTodos = [...todos];                        // Copy current todos
             newTodos[index].lists.push(listInputs[index]);      // Add list to the right section
             setTodos(newTodos);                                 // Update state
-            setListInputs({ ...listInputs, [index]: '' });      // Clear list input for that section
+            setListInputs({ ...listInputs, [index]: '' });      // Clear list input for that section or heading or index
         }
     };
     // Function to handle change in list input field for a specific section
@@ -59,13 +59,9 @@ const TodoList = () => {
                     <div key={index} className="todo-card">
                         <div className="heading_todo">
                             <h3>{todo.heading}</h3> {/* Display heading */}
-                            <button
-                                className="delete-button-heading"
-                                onClick={() => handleDeleteTodo(index)}
-                            >
-                                Delete Heading
-                            </button>
+                            <button className="delete-button-heading" onClick={() => handleDeleteTodo(index)}> Delete Heading </button>               
                         </div>
+                        
                         {/* Render all list items under this heading */}
                         <ul>
                             {todo.lists.map((list, listIndex) => (
@@ -83,12 +79,8 @@ const TodoList = () => {
                                 value={listInputs[index] || ''} // Maintain controlled input
                                 onChange={(e) => handleListInputChange(index, e.target.value)} // Update list input value
                             />
-                            <button
-                                className="add-list-button"
-                                onClick={() => handleAddList(index)}
-                            >
-                                Add List
-                            </button>
+                            <button className="add-list-button" onClick={() => handleAddList(index)}>Add List</button>    
+                            
                         </div>
                     </div>
                 ))}
